@@ -12,6 +12,7 @@
     "prepare": "husky install",
     "lint": "tsc && prettier --check . && eslint . && stylelint \"**/*.css\"",
     "test": "jest",
+    "pre-push": "npm run test && npm run lint",
     "start": "node dist/server.js"
   },
   "devDependencies": {
