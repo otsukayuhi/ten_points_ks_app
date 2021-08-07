@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
-import styles from './App.module.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import styles from './App.module.css';
 import Welcome from './components/Welcome/Welcome';
+import logo from './logo.svg';
 
 function App(): JSX.Element {
   const [count, setCount] = useState<number>(0);

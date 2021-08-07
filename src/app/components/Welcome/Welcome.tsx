@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import classes from './Welcome.module.css';
 
 function Welcome(): JSX.Element {
