@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
     "client:dev": "vite",
-    "server:dev": "ts-node-dev --project tsconfig.server.json src/server",
+    "server:dev": "ts-node-dev --project tsconfig.server.json src/backend/server",
     "server:build": "tsc --project tsconfig.server.json",
     "client:build": "vite build",
     "build": "npm run server:build && npm run client:build",
@@ -13,7 +13,7 @@
     "lint": "tsc && prettier --check . && eslint . && stylelint \"**/*.css\"",
     "test": "jest",
     "pre-push": "npm run test && npm run lint",
-    "start": "node dist/server.js"
+    "start": "node dist/backend/server.js"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
