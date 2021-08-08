@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { User } from 'types/user';
 
-import { User } from '../types';
 import styles from './App.module.css';
 
 export const App: React.FC = () => {

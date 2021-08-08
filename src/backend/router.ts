@@ -1,8 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import mysql from 'mysql';
-
-import { User } from '../types';
+import { User } from 'types/user';
 
 dotenv.config();
 const { DB_HOST, DB_USER, DB_PASSWORD, DB_NAME } = process.env;

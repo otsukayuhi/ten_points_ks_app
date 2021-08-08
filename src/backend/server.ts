@@ -3,7 +3,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import express from 'express';
 
-import router from './lib/router';
+import router from './router';
 
 dotenv.config();
 
