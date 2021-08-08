@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import mysql from 'mysql';
 
+import { User } from '../types';
+
 dotenv.config();
 const { DB_HOST, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 
@@ -14,10 +16,10 @@ const connection = mysql.createConnection({
   database: DB_NAME,
 });
 
-router.get('/items', (_req, res) => {
-  connection.query('select * from items', (error, results) => {
+router.get('/users', (_req: express.Request, res: express.Response) => {
+  connection.query('select * from users', (error, results: User[]) => {
     if (error) throw error;
-    res.status(200).json(results);
+    res.json(results);
   });
 });
 
