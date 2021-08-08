@@ -1,3 +1,5 @@
+import 'modern-css-reset';
+
 import './globals.css';
 
 import React from 'react';
