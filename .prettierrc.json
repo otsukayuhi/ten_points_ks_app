@@ -1,5 +1,3 @@
 {
-  "singleQuote": true,
-  "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
-  "importOrderSeparation": true
+  "singleQuote": true
 }
