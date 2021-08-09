@@ -1,5 +1,6 @@
-import { getUsers } from 'backend/repository/getUsers';
 import express from 'express';
+
+import { getUsers } from '../../repository/getUsers';
 
 const router = express.Router();
 
