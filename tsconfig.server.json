@@ -3,7 +3,10 @@
   "compilerOptions": {
     "outDir": "dist",
     "module": "commonjs",
-    "noEmit": false
+    "noEmit": false,
+    "paths": {
+      "*": ["./*"]
+    }
   },
   "include": ["src/backend/**/*.ts"],
   "exclude": ["src/frontend"]
