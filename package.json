@@ -5,7 +5,7 @@
     "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
     "client:dev": "vite",
     "server:dev": "ts-node-dev --project tsconfig.server.json -r tsconfig-paths/register src/backend/server",
-    "server:build": "tsc --project tsconfig.server.json -r tsconfig-paths/register",
+    "server:build": "tsc --project tsconfig.server.json",
     "client:build": "vite build",
     "build": "npm run server:build && npm run client:build",
     "serve": "vite preview",
