@@ -19,6 +19,9 @@
     "skipLibCheck": false,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "*": ["./*"]
+    }
   }
 }
