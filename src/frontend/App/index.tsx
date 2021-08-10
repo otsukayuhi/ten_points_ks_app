@@ -1,21 +1,19 @@
-import { getUsers } from 'frontend/gateway/getUsers';
+import { useGetUsers } from 'frontend/hooks/useGetUsers';
 import React from 'react';
-import { useQuery } from 'react-query';
-import { User } from 'types/user';
 
 import styles from './index.module.css';
 
 export const App: React.FC = () => {
-  const {
-    data = [],
-    isError,
-    error,
-    isLoading,
-  } = useQuery<User[], Error>('users', getUsers);
+  const { data, isError, error, isLoading } = useGetUsers();
 
   if (isLoading) return <div>loading...</div>;
 
-  if (isError) return <div>取得に失敗しました。Error: {error?.message}</div>;
+  if (isError)
+    return (
+      <div>
+        取得に失敗しました。{error && <div>Error: {error.message}</div>}
+      </div>
+    );
 
   return (
     <ul className={styles.App}>
