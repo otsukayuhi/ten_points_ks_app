@@ -1,5 +1,5 @@
 {
-  "*.{js,jsx,ts,tsx}": "eslint --fix --cache",
-  "*.css": "stylelint --fix",
-  "*.{js,jsx,ts,tsx,css,html,json,md,mdx}": "prettier --write"
+  "src/**/*.{js,jsx,ts,tsx}": "eslint --fix --cache",
+  "src/**/*.css": "stylelint --fix",
+  "src/**/*.{js,jsx,ts,tsx,css,html,json,md,mdx}": "prettier --write"
 }
