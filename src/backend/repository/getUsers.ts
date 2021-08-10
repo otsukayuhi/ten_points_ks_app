@@ -1,7 +1,6 @@
+import { db_config } from 'backend/config/db';
 import mysql from 'mysql';
 import { User } from 'types/user';
-
-import { db_config } from '../config/db';
 
 const pool = mysql.createPool(db_config);
 
