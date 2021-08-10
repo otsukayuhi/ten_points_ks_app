@@ -22,6 +22,7 @@ export default defineConfig({
   resolve: {
     alias: {
       frontend: path.resolve(__dirname, 'src/frontend'),
+      types: path.resolve(__dirname, 'src/backend'),
     },
   },
   build: {
