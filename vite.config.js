@@ -13,16 +13,13 @@ export default defineConfig({
   plugins: [reactRefresh()],
   server: {
     proxy: {
-      '/api': {
-        target: `http://localhost:${PORT}`,
-        changeOrigin: true,
-      },
+      '/api': `http://localhost:${PORT}`,
     },
   },
   resolve: {
     alias: {
       frontend: path.resolve(__dirname, 'src/frontend'),
-      types: path.resolve(__dirname, 'src/backend'),
+      types: path.resolve(__dirname, 'src/types'),
     },
   },
   build: {
