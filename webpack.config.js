@@ -26,7 +26,7 @@ module.exports = {
   resolve: {
     alias: {
       backend: path.resolve(__dirname, 'src/backend'),
-      types: path.resolve(__dirname, 'src/backend'),
+      types: path.resolve(__dirname, 'src/types'),
     },
     extensions: ['.ts'],
   },
