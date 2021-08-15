@@ -1,5 +1,5 @@
 {
-  "name": "vite-boilerplate",
+  "name": "ten-points-app",
   "version": "0.0.0",
   "scripts": {
     "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
@@ -66,5 +66,8 @@
     ".js, .jsx, .ts, .tsx": {
       "style": "module"
     }
+  },
+  "engines": {
+    "node": "14.17.4"
   }
 }
