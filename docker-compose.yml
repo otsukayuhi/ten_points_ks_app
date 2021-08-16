@@ -11,18 +11,3 @@ services:
       - ./mysql/conf:/etc/mysql/conf.db
     environment:
       - ./mysql/.env
-  node:
-    build: .
-    container_name: nodejs-container
-    working_dir: /usr/src/app
-    volumes:
-      - ./:/usr/src/app
-      - /usr/src/app/node_modules
-    ports:
-      - '3001:3001'
-      - '3000:3000'
-    depends_on:
-      - mysql
-    links:
-      - mysql:mysql
-    tty: true
