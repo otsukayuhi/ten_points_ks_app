@@ -11,3 +11,5 @@ services:
       - ./mysql/conf:/etc/mysql/conf.db
     env_file:
       - ./mysql/.env
+    environment:
+      TZ: Asia/Tokyo
