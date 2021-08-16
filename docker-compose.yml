@@ -9,5 +9,5 @@ services:
     volumes:
       - ./mysql_db:/var/lib/mysql
       - ./mysql/conf:/etc/mysql/conf.db
-    environment:
+    env_file:
       - ./mysql/.env
