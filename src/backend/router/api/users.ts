@@ -1,4 +1,4 @@
-import { getUsers } from 'backend/repository/getUsers';
+import { getUsers } from 'backend/infrastructure/getUsers';
 import express from 'express';
 
 const router = express.Router();

@@ -1,20 +1,22 @@
+import { User } from 'backend/domain/model/User';
 import { errorType } from 'backend/error/error';
-import { getPoints } from 'backend/repository/getPoints';
-import { isExistUser } from 'backend/util/isDuplicated';
+import { getPoints } from 'backend/infrastructure/getPoints';
+import { getUser } from 'backend/infrastructure/getUser';
 import express from 'express';
 
 const router = express.Router();
 
 router.get('/', async (req: express.Request, res: express.Response) => {
-  const userId = Number(req.query.user_id) || 0;
+  const userId = User.transformQueryStringToUserId(req.query.user_id as string);
 
-  if (userId === 0) {
+  if (User.isValidUserId(userId)) {
     res.status(400).json(errorType.e4001);
     return;
   }
 
   try {
-    if (!(await isExistUser(userId))) {
+    const user = new User(await getUser(userId));
+    if (!user.isExistUser()) {
       res.status(404).json(errorType.e4041);
       return;
     }

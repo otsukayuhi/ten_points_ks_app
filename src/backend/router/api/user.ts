@@ -1,27 +1,33 @@
+import { User } from 'backend/domain/model/User';
 import { errorType } from 'backend/error/error';
-import { getUser } from 'backend/repository/getUser';
+import { getUser } from 'backend/infrastructure/getUser';
 import express from 'express';
+import { UserType } from 'types/user';
 
 const router = express.Router();
 
 router.get('/', async (req: express.Request, res: express.Response) => {
-  const id = Number(req.query.id) || 0;
+  const user_id = User.transformQueryStringToUserId(req.query.id as string);
 
-  if (id === 0) {
+  if (User.isValidUserId(user_id)) {
     res.status(400).json(errorType.e4001);
     return;
   }
 
   try {
-    const users = await getUser(id);
+    const user = new User(await getUser(user_id));
 
-    // TODO: isExistUser() と同じことしているので、なんとかしたい。
-    if (users.length === 0) {
+    if (!user.isExistUser()) {
       res.status(404).json(errorType.e4041);
       return;
     }
 
-    res.json(users[0]);
+    const result: Pick<UserType, 'id' | 'name'> = {
+      id: user.getUserId(),
+      name: user.getUserName() || '',
+    };
+
+    res.json(result);
   } catch (error) {
     console.log(error);
   }
