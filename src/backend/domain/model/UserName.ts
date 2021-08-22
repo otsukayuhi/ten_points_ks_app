@@ -1,11 +1,11 @@
 export class UserName {
-  readonly name: string | null;
+  readonly name: string;
 
-  constructor(name: string | undefined) {
-    this.name = name || null;
+  constructor(name: string) {
+    this.name = name;
   }
 
-  public getUserName(): string | null {
+  public getUserName(): string {
     return this.name;
   }
 }

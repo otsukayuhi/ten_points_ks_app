@@ -1,11 +1,21 @@
-export class UserId {
-  readonly id: number;
+import { CustomError } from 'backend/error/CustomError';
 
-  constructor(id: number | undefined) {
-    this.id = id || 0;
+export class UserId {
+  readonly id: string;
+
+  constructor(id: unknown) {
+    if (typeof id !== 'string') {
+      throw new CustomError('不正なユーザーIDです。', 404);
+    }
+
+    if (id.length <= 4) {
+      throw new CustomError('ユーザーIDの文字数が足りません。', 404);
+    }
+
+    this.id = id;
   }
 
-  public getUserId(): number {
+  public getUserId(): string {
     return this.id;
   }
 }

@@ -1,16 +1,16 @@
 import { getUsers } from 'frontend/api/getUsers';
 import { useQuery } from 'react-query';
-import { User } from 'types/user';
+import { UserModel } from 'types/user';
 
 export interface UseGetUsers {
-  data: User[];
+  data: UserModel[];
   isError: boolean;
   error: Error | null;
   isLoading: boolean;
 }
 
 export const useGetUsers = (): UseGetUsers => {
-  const { data, isError, error, isLoading } = useQuery<User[], Error>(
+  const { data, isError, error, isLoading } = useQuery<UserModel[], Error>(
     'users',
     getUsers
   );

@@ -1,15 +1,25 @@
-import { getUsers } from 'backend/infrastructure/getUsers';
+import { UserApplicationService } from 'backend/application/UserApplicationService';
+import { UserRepository } from 'backend/infrastructure/UserRepository';
 import express from 'express';
 
 const router = express.Router();
 
-router.get('/', async (_req: express.Request, res: express.Response) => {
-  try {
-    const users = await getUsers();
-    res.json(users);
-  } catch (error) {
-    console.log(error);
+router.get(
+  '/',
+  async (
+    _req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    try {
+      const userRepository = new UserRepository();
+      const userApplicationService = new UserApplicationService(userRepository);
+
+      res.json(await userApplicationService.getUsers());
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 export default router;

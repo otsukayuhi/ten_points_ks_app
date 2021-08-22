@@ -18,7 +18,7 @@ export const App: React.FC = () => {
   return (
     <ul className={styles.App}>
       {data.map((user) => (
-        <li key={user.id}>{user.name}</li>
+        <li key={user.user_id}>{user.name}</li>
       ))}
     </ul>
   );
