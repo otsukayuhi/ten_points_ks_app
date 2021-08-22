@@ -3,51 +3,44 @@ import { UserId } from 'backend/domain/model/UserId';
 import { UserName } from 'backend/domain/model/UserName';
 import { UserService } from 'backend/domain/service/UserService';
 import { CustomError } from 'backend/error/CustomError';
+import { IUserFactory } from 'backend/factory/UserFactory';
 import { IUserRepository } from 'backend/infrastructure/UserRepository';
 import { UserModel } from 'types/user';
 
 export class UserApplicationService {
   readonly userRepository: IUserRepository;
+  readonly userFactory: IUserFactory;
   readonly userService: UserService;
 
-  constructor(userRepository: IUserRepository) {
+  constructor(
+    userRepository: IUserRepository,
+    userFactory: IUserFactory,
+    userService: UserService
+  ) {
     this.userRepository = userRepository;
-    this.userService = new UserService(this.userRepository);
+    this.userFactory = userFactory;
+    this.userService = userService;
   }
 
   /**
    * getUser
    */
-  public async getUser(userId: UserId): Promise<UserModel> {
+  public async find(userId: UserId): Promise<UserModel> {
     if (!(await this.userService.exist(userId))) {
       throw new CustomError('ユーザーが存在しません。', 404);
     }
 
     const result = await this.userRepository.find(userId);
-    const user = new User(userId, new UserName(result.name));
 
-    return {
-      user_id: user.getUserId(),
-      name: user.getUserName(),
-    };
+    return this.userFactory.makeUserModel(result);
   }
 
   /**
    * getUsers
    */
-  public async getUsers(): Promise<UserModel[]> {
+  public async findAll(): Promise<UserModel[]> {
     const results = await this.userRepository.findAll();
 
-    return results.map((result) => {
-      const user = new User(
-        new UserId(result.user_id),
-        new UserName(result.name)
-      );
-
-      return {
-        user_id: user.getUserId(),
-        name: user.getUserName(),
-      };
-    });
+    return this.userFactory.makeUsersModel(results);
   }
 }
