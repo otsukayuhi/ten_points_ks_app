@@ -1,19 +1,21 @@
-import { User } from 'backend/domain/model/User';
 import { UserId } from 'backend/domain/model/UserId';
-import { UserName } from 'backend/domain/model/UserName';
 import { UserService } from 'backend/domain/service/UserService';
 import { CustomError } from 'backend/error/CustomError';
 import { IUserFactory } from 'backend/factory/UserFactory';
 import { IUserRepository } from 'backend/infrastructure/UserRepository';
+import { inject, injectable } from 'tsyringe';
 import { UserModel } from 'types/user';
 
+@injectable()
 export class UserApplicationService {
-  readonly userRepository: IUserRepository;
-  readonly userFactory: IUserFactory;
-  readonly userService: UserService;
+  private readonly userRepository: IUserRepository;
+  private readonly userFactory: IUserFactory;
+  private readonly userService: UserService;
 
   constructor(
+    @inject('IUserRepository')
     userRepository: IUserRepository,
+    @inject('IUserFactory')
     userFactory: IUserFactory,
     userService: UserService
   ) {

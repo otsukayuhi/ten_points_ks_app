@@ -2,6 +2,8 @@
   "extends": "@tsconfig/node14/tsconfig.json",
   "compilerOptions": {
     "noEmit": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "baseUrl": "src",
     "paths": {
       "*": ["./*"]
