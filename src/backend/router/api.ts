@@ -6,6 +6,6 @@ const router = express.Router();
 const userController = container.resolve(UserController);
 
 router.use('/user', userController.getUserRouter());
-router.use('/users', userController.getUsersRouter());
+router.use('/user_list', userController.getUserListRouter());
 
 export default router;

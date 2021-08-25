@@ -29,7 +29,7 @@ export class UserController {
     return router;
   }
 
-  public getUsersRouter(): express.Router {
+  public getUserListRouter(): express.Router {
     const router = express.Router();
     router.get(
       '/',

@@ -1,16 +1,18 @@
 import { db_config } from 'backend/config/db';
+import { User } from 'backend/domain/model/User';
 import { UserId } from 'backend/domain/model/UserId';
+import { UserName } from 'backend/domain/model/UserName';
 import mysql from 'mysql';
 import { UserDBModel } from 'types/user';
 
 export interface IUserRepository {
-  find(userId: UserId): Promise<UserDBModel>;
-  findAll(): Promise<UserDBModel[]>;
+  find(userId: UserId): Promise<User>;
+  findAll(): Promise<User[]>;
   exist(userId: UserId): Promise<boolean>;
 }
 
 export class UserRepository implements IUserRepository {
-  public async find(userId: UserId): Promise<UserDBModel> {
+  public async find(userId: UserId): Promise<User> {
     const pool = mysql.createPool(db_config);
     const sql = 'select * from users where user_id=?';
 
@@ -23,7 +25,11 @@ export class UserRepository implements IUserRepository {
           [userId.getUserId()],
           (error, results: UserDBModel[]) => {
             if (error) reject(error);
-            resolve(results[0]);
+
+            const { user_id, name } = results[0];
+            const user = new User(new UserId(user_id), new UserName(name));
+
+            resolve(user);
             connection.release();
           }
         );
@@ -31,7 +37,7 @@ export class UserRepository implements IUserRepository {
     });
   }
 
-  public async findAll(): Promise<UserDBModel[]> {
+  public async findAll(): Promise<User[]> {
     const pool = mysql.createPool(db_config);
     const sql = 'select * from users';
 
@@ -42,7 +48,12 @@ export class UserRepository implements IUserRepository {
         connection.query(sql, (error, results: UserDBModel[]) => {
           if (error) reject(error);
 
-          resolve(results);
+          const userList: User[] = results.map((result) => {
+            const { user_id, name } = result;
+            return new User(new UserId(user_id), new UserName(name));
+          });
+
+          resolve(userList);
           connection.release();
         });
       });

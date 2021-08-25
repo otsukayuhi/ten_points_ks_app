@@ -32,17 +32,17 @@ export class UserApplicationService {
       throw new CustomError('ユーザーが存在しません。', 404);
     }
 
-    const result = await this.userRepository.find(userId);
+    const user = await this.userRepository.find(userId);
 
-    return this.userFactory.makeUserModel(result);
+    return this.userFactory.makeUserModel(user);
   }
 
   /**
    * getUsers
    */
   public async findAll(): Promise<UserModel[]> {
-    const results = await this.userRepository.findAll();
+    const userList = await this.userRepository.findAll();
 
-    return this.userFactory.makeUsersModel(results);
+    return this.userFactory.makeUserListModel(userList);
   }
 }
