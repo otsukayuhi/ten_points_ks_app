@@ -1,7 +1,7 @@
 import { CustomError } from 'backend/error/CustomError';
 
 export class UserId {
-  readonly id: string;
+  private readonly id: string;
 
   constructor(id: unknown) {
     if (typeof id !== 'string') {

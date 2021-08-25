@@ -4,7 +4,7 @@ import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class UserService {
-  public userRepository: IUserRepository;
+  private readonly userRepository: IUserRepository;
 
   constructor(
     @inject('IUserRepository')

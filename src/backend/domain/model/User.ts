@@ -2,8 +2,8 @@ import { UserId } from './UserId';
 import { UserName } from './UserName';
 
 export class User {
-  readonly userId: UserId;
-  readonly userName: UserName;
+  private readonly userId: UserId;
+  private userName: UserName;
 
   constructor(userId: UserId, name: UserName) {
     this.userId = userId;
