@@ -1,22 +1,10 @@
-import { UserId } from 'backend/domain/model/UserId';
-import { IUserRepository } from 'backend/infrastructure/UserRepository';
-import { inject, injectable } from 'tsyringe';
+import { User } from 'backend/domain/model/User';
 
-@injectable()
 export class UserService {
-  private readonly userRepository: IUserRepository;
-
-  constructor(
-    @inject('IUserRepository')
-    userRepository: IUserRepository
-  ) {
-    this.userRepository = userRepository;
-  }
-
   /**
-   * exist
+   * ユーザーが存在するか
    */
-  public async exist(id: UserId): Promise<boolean> {
-    return this.userRepository.exist(id);
+  public exist(user: User | null): user is User {
+    return user instanceof User;
   }
 }

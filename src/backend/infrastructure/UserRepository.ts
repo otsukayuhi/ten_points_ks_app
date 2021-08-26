@@ -6,13 +6,12 @@ import mysql from 'mysql';
 import { UserDBModel } from 'types/user';
 
 export interface IUserRepository {
-  find(userId: UserId): Promise<User>;
+  find(userId: UserId): Promise<User | null>;
   findAll(): Promise<User[]>;
-  exist(userId: UserId): Promise<boolean>;
 }
 
 export class UserRepository implements IUserRepository {
-  public async find(userId: UserId): Promise<User> {
+  public async find(userId: UserId): Promise<User | null> {
     const pool = mysql.createPool(db_config);
     const sql = 'select * from users where user_id=?';
 
@@ -25,6 +24,10 @@ export class UserRepository implements IUserRepository {
           [userId.getUserId()],
           (error, results: UserDBModel[]) => {
             if (error) reject(error);
+
+            if (results.length === 0) {
+              return resolve(null);
+            }
 
             const { user_id, name } = results[0];
             const user = new User(new UserId(user_id), new UserName(name));
@@ -56,27 +59,6 @@ export class UserRepository implements IUserRepository {
           resolve(userList);
           connection.release();
         });
-      });
-    });
-  }
-
-  public async exist(userId: UserId): Promise<boolean> {
-    const pool = mysql.createPool(db_config);
-    const sql = 'select * from users where user_id = ?';
-
-    return new Promise((resolve, reject) => {
-      pool.getConnection((err, connection) => {
-        if (err) reject(err);
-
-        connection.query(
-          sql,
-          [userId.getUserId()],
-          (error, results: UserDBModel[]) => {
-            if (error) reject(error);
-            resolve(results.length !== 0);
-            connection.release();
-          }
-        );
       });
     });
   }

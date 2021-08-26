@@ -20,11 +20,11 @@ export class UserApplicationService {
    * getUser
    */
   public async find(userId: UserId): Promise<UserModel> {
-    if (!(await this.userService.exist(userId))) {
+    const user = await this.userRepository.find(userId);
+
+    if (!this.userService.exist(user)) {
       throw new CustomError('ユーザーが存在しません。', 404);
     }
-
-    const user = await this.userRepository.find(userId);
 
     return this.userFactory.makeUserModel(user);
   }
