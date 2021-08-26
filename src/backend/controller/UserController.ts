@@ -1,9 +1,14 @@
 import { UserApplicationService } from 'backend/application/UserApplicationService';
 import { UserId } from 'backend/domain/model/UserId';
 import express from 'express';
-import { container } from 'tsyringe';
+import { container, injectable } from 'tsyringe';
 
+@injectable()
 export class UserController {
+  constructor(
+    private readonly userApplicationService: UserApplicationService
+  ) {}
+
   public getUserRouter(): express.Router {
     const router = express.Router();
     router.get(
@@ -15,11 +20,8 @@ export class UserController {
       ) => {
         try {
           const userId = new UserId(req.query.id);
-          const userApplicationService = container.resolve(
-            UserApplicationService
-          );
 
-          res.json(await userApplicationService.find(userId));
+          res.json(await this.userApplicationService.find(userId));
         } catch (error) {
           next(error);
         }
