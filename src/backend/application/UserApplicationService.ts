@@ -8,21 +8,13 @@ import { UserModel } from 'types/user';
 
 @injectable()
 export class UserApplicationService {
-  private readonly userRepository: IUserRepository;
-  private readonly userFactory: IUserFactory;
-  private readonly userService: UserService;
-
   constructor(
     @inject('IUserRepository')
-    userRepository: IUserRepository,
+    private readonly userRepository: IUserRepository,
     @inject('IUserFactory')
-    userFactory: IUserFactory,
-    userService: UserService
-  ) {
-    this.userRepository = userRepository;
-    this.userFactory = userFactory;
-    this.userService = userService;
-  }
+    private readonly userFactory: IUserFactory,
+    private readonly userService: UserService
+  ) {}
 
   /**
    * getUser

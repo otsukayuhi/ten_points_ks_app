@@ -2,13 +2,7 @@ import { UserId } from './UserId';
 import { UserName } from './UserName';
 
 export class User {
-  private readonly userId: UserId;
-  private userName: UserName;
-
-  constructor(userId: UserId, name: UserName) {
-    this.userId = userId;
-    this.userName = name;
-  }
+  constructor(private readonly userId: UserId, private userName: UserName) {}
 
   public getUserId(): string {
     return this.userId.getUserId();
