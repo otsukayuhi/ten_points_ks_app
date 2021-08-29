@@ -1,5 +1,5 @@
+import { User } from 'backend/domain/model/User';
 import { UserId } from 'backend/domain/model/UserId';
-import { UserService } from 'backend/domain/service/UserService';
 import { CustomError } from 'backend/error/CustomError';
 import { IUserFactory } from 'backend/factory/UserFactory';
 import { IUserRepository } from 'backend/infrastructure/UserRepository';
@@ -12,8 +12,7 @@ export class UserApplicationService {
     @inject('IUserRepository')
     private readonly userRepository: IUserRepository,
     @inject('IUserFactory')
-    private readonly userFactory: IUserFactory,
-    private readonly userService: UserService
+    private readonly userFactory: IUserFactory
   ) {}
 
   /**
@@ -22,7 +21,7 @@ export class UserApplicationService {
   public async find(userId: UserId): Promise<UserModel> {
     const user = await this.userRepository.find(userId);
 
-    if (!this.userService.exist(user)) {
+    if (!User.exist(user)) {
       throw new CustomError('ユーザーが存在しません。', 404);
     }
 

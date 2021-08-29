@@ -11,4 +11,11 @@ export class User {
   public getUserName(): string {
     return this.userName.getUserName();
   }
+
+  /**
+   * ユーザーが存在するか
+   */
+  public static exist(user: User | null): user is User {
+    return user instanceof this;
+  }
 }
