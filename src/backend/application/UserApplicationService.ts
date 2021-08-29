@@ -29,7 +29,7 @@ export class UserApplicationService {
   }
 
   /**
-   * getUsers
+   * getUserList
    */
   public async findAll(): Promise<UserModel[]> {
     const userList = await this.userRepository.findAll();
